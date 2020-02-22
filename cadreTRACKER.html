@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<title>Suivi du visage</title>
+		<meta charset="utf-8">
+		<style>
+
+			#overlay {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				-o-transform : scaleX(-1);
+				-webkit-transform : scaleX(-1);
+				transform : scaleX(-1);
+				-ms-filter : fliph; /*IE*/
+				filter : fliph; /*IE*/
+			}
+
+			#videoel {
+				-o-transform : scaleX(-1);
+				-webkit-transform : scaleX(-1);
+				transform : scaleX(-1);
+				-ms-filter : fliph; /*IE*/
+				filter : fliph; /*IE*/
+			}
+
+			#container {
+				position : relative;
+				width : 370px;
+				/*margin : 0px auto;*/
+			}
+
+			#content {
+				margin-left : 0px;
+				margin-right : 0px;
+			}
+
+			h2 {
+				font-weight : 400;
+			}
+
+			.nogum {
+				display : none;
+			}
+
+			.btn {
+				font-size: 16px;
+			}
+
+			.hide {
+				display : none;
+			}
+
+			.nohide {
+				display : block;
+			}
+		</style>
+		<script src="utils.js"></script>
+		<script src="clmtrackr.js"></script>
+    	<script src="p5/p5.min.js"></script>
+    	<script src="p5/p5.dom.min.js"></script>
+	</head>
+	<body>
+		<div id="content">
+			<div id="container">
+				<video id="videoel" width="800" height="600" preload="auto" loop playsinline autoplay>
+				</video>
+				<canvas id="overlay" width="800" height="600"></canvas>
+			</div>
+			<br/>
+			<input class="btn" type="button" value="En attente de la caméra" disabled="disabled" 
+				   onclick="startVideo()" id="startbutton"></input>
+			<input class="btn" type="button" value="Lever le crayon" 
+				   onclick="changerTrace()" id="boutonTrace"></input>
+			<h2><b>Avertissement</b><br />
+			Cet exemple nécessite un serveur local (<b>localhost</b>) ou un serveur sécurisé (<b>https</b>) <br />
+			et un navigateur web récent. En cas de difficulté, essayez <b><i>Google Chrome</i></b>.</h2>
+			<div id="text">
+				<div id="gum" class="gum"></div>
+				<div id="nogum" class="nogum"></div>
+			</div>
+			<script>
+				var vid = document.getElementById('videoel');
+				var vid_width = vid.width;
+				var vid_height = vid.height;
+				var overlay = document.getElementById('overlay');
+				var overlayCC = overlay.getContext('2d');
+				var dessiNEZ, crayonBaisse = true, enCours = false;
+
+				/*********** Setup of video/webcam and checking for webGL support *********/
+
+				function enablestart() {
+					var startbutton = document.getElementById('startbutton');
+					startbutton.value = "Débuter";
+					startbutton.disabled = null;
+				}
+
+				var insertAltVideo = function(video) {
+					return false;
+				}
+
+				function adjustVideoProportions() {
+					// resize overlay and video if proportions of video are not 4:3
+					// keep same height, just change width
+					var proportion = vid.videoWidth/vid.videoHeight;
+					vid_width = Math.round(vid_height * proportion);
+					vid.width = vid_width;
+					overlay.width = vid_width;
+				}
+
+				function gumSuccess( stream ) {
+					// add camera stream if getUserMedia succeeded
+					if ("srcObject" in vid) {
+						vid.srcObject = stream;
+					} else {
+						vid.src = (window.URL && window.URL.createObjectURL(stream));
+					}
+					vid.onloadedmetadata = function() {
+						adjustVideoProportions();
+						vid.play();
+					}
+					vid.onresize = function() {
+						adjustVideoProportions();
+						if (trackingStarted) {
+							ctrack.stop();
+							ctrack.reset();
+							ctrack.start(vid);
+						}
+					}
+				}
+
+				function gumFail() {
+					// fall back to video if getUserMedia failed
+					insertAltVideo(vid);
+					document.getElementById('gum').className = "hide";
+					document.getElementById('nogum').className = "nohide";
+					alert("Caméra web non disponible, \npeut-être pour des raisons de sécurité.");
+				}
+
+				navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+				window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
+
+				// set up video
+				if (navigator.mediaDevices) {
+					navigator.mediaDevices.getUserMedia({video : true}).then(gumSuccess).catch(gumFail);
+				} else if (navigator.getUserMedia) {
+					navigator.getUserMedia({video : true}, gumSuccess, gumFail);
+				} else {
+					insertAltVideo(vid);
+					document.getElementById('gum').className = "hide";
+					document.getElementById('nogum').className = "nohide";
+					alert("Caméra web non disponible, \npeut-être pour des raisons de sécurité.");
+				}
+
+				vid.addEventListener('canplay', enablestart, false);
+
+				/*********** Code for face tracking *********/
+
+				var ctrack = new clm.tracker();
+				ctrack.init();
+				var trackingStarted = false;
+
+				function startVideo() {
+					if (enCours) {dessiNEZ.clear(); return;} else {enCours = true;}
+					// start video
+					vid.play();
+					// start tracking
+					ctrack.start(vid);
+					trackingStarted = true;
+					// start loop to draw face
+					drawLoop();
+				}
+
+				function drawLoop() {
+					requestAnimFrame(drawLoop);
+					overlayCC.clearRect(0, 0, vid_width, vid_height);
+					var figure = ctrack.getCurrentPosition();
+					if (figure) {
+						ctrack.draw(overlay);
+						gererDessin(figure);
+					}
+				}
+				
+				function setup(){
+					noLoop(); 
+					dessiNEZ = createGraphics(800,600);
+		  			dessiNEZ.position(0,0);
+		  			dessiNEZ.show(); 
+		  			dessiNEZ.strokeWeight(3); dessiNEZ.stroke(255,0,0); dessiNEZ.fill(255,0,0);
+		  			//modeCadre();
+				}
+				function draw(){}
+				
+				function gererDessin(p) {
+					if (p && crayonBaisse) {dessiNEZ.ellipse(810-p[62][0],4+p[62][1],5,5);} // 810 (et non 800) et 4 (et non 0) déterminés expérimentalement
+				
+				}
+		
+				function recevoir_envoi_vers_cadre(liste) {
+					if (liste.length == 0) {return;}
+					if(liste[0]=="initialiser") {modeCadre();}
+					if(liste[0]=="commencer") {startVideo();}
+					if(liste[0]=="recommencer") {dessiNEZ.clear();}
+					if(liste[0]=="crayon") {crayonBaisse = liste[1];}
+				}
+				
+				function changerTrace() {
+					crayonBaisse = !crayonBaisse;
+					if (crayonBaisse) {document.getElementById('boutonTrace').value = "Lever le crayon";} 
+					else {document.getElementById('boutonTrace').value = "Baisser le crayon";}
+				}
+				
+				function modeCadre() {
+					document.getElementById('startbutton').style.display = "none";
+					document.getElementById('boutonTrace').style.display = "none";
+				}
+				
+
+			</script>
+		</div>
+	</body>
+</html>

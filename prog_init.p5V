@@ -1,0 +1,306 @@
+Programme p5Visuel
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="" id="|77CT0-QUnZXeu.)}RiV">canevas</variable>
+    <variable type="" id="wslUwLtd#I]*V|];O9;!">boutonCommencer</variable>
+    <variable type="" id="cE-/`MSv#r.PY|ZI$:.b">boutonCrayon</variable>
+    <variable type="" id="J$`l$|=0y|;8:nz9{.Zp">crayonTrace</variable>
+    <variable type="" id="z!-SO^tF.z_uRA1pLHF`">enCours</variable>
+  </variables>
+  <block type="procedures_defnoreturn" id="!un)A#F~hv4Bh#va5Q~n" x="3" y="3">
+    <field name="NAME">actions initiales</field>
+    <comment pinned="false" h="80" w="160">Fonction exécutée une fois, au départ</comment>
+    <statement name="STACK">
+      <block type="catégorie_margeGauche" id="u+Eme4$.*`{kuVa0-Ti`">
+        <value name="NB_PIXELS">
+          <shadow type="math_number" id="=+r|5i;x3M{=OInLt*]v">
+            <field name="NUM">30</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="variables_set" id="Y:qeicbW2!vngyRLqq*N">
+            <field name="VAR" id="z!-SO^tF.z_uRA1pLHF`" variabletype="">enCours</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="qRM*2997$0fbr4H[Jz#h">
+                <field name="BOOL">FALSE</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="FySd,]~wy~=Si}ZM:Y$h">
+                <field name="VAR" id="J$`l$|=0y|;8:nz9{.Zp" variabletype="">crayonTrace</field>
+                <value name="VALUE">
+                  <block type="logic_boolean" id="{hhrn%bROhjIr2v(=Y26">
+                    <field name="BOOL">TRUE</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set" id="$]`bJ_cZvl;aNvns6:2?">
+                    <field name="VAR" id="wslUwLtd#I]*V|];O9;!" variabletype="">boutonCommencer</field>
+                    <value name="VALUE">
+                      <block type="objetsWeb_viaID" id="KD?Rf]V1_gV9NzA(C2iw">
+                        <value name="ID">
+                          <shadow type="text" id="oLs%i+MNx;V(vv6`o,?c">
+                            <field name="TEXT">commencer</field>
+                          </shadow>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="proprietes_boutonClic" id="10cx4fKKl7L%aLbmVt|Z">
+                        <value name="VAR_BOUTON">
+                          <block type="variables_get" id="AOm_B4z|yxUHwBbsaf38">
+                            <field name="VAR" id="wslUwLtd#I]*V|];O9;!" variabletype="">boutonCommencer</field>
+                          </block>
+                        </value>
+                        <value name="PROC">
+                          <block type="procedures_callreturn" id="Wfbx}bZ~PKa;B!(P.`xI">
+                            <mutation name="clic commencer"></mutation>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="variables_set" id="4.t|^#crVS8+2`--;zZN">
+                            <field name="VAR" id="cE-/`MSv#r.PY|ZI$:.b" variabletype="">boutonCrayon</field>
+                            <value name="VALUE">
+                              <block type="objetsWeb_viaID" id="%NQ4ayb2)jhdrneXZ(;S">
+                                <value name="ID">
+                                  <shadow type="text" id="H3UY~qcyJ[AxjejyyxDD">
+                                    <field name="TEXT">crayon</field>
+                                  </shadow>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="proprietes_boutonClic" id="84~~%SUN5fYxC*iNP{WT">
+                                <value name="VAR_BOUTON">
+                                  <block type="variables_get" id="+ZABdOZ.,7!.%T/8Dtx(">
+                                    <field name="VAR" id="cE-/`MSv#r.PY|ZI$:.b" variabletype="">boutonCrayon</field>
+                                  </block>
+                                </value>
+                                <value name="PROC">
+                                  <block type="procedures_callreturn" id="b=%:YZy/Nc.|%c!rm:E`">
+                                    <mutation name="clic crayon"></mutation>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="programmation_faire" id="t7jT?3c.QKiSB.gSy]e%">
+                                    <value name="fonction">
+                                      <block type="procedures_callreturn" id="_5#@-d(?Fc9iO9|fzYNT">
+                                        <mutation name="cacher boutons du cadre"></mutation>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="sNnHnB2XE9|fCS-xN%`L" x="331" y="31">
+    <field name="NAME">actions en boucle</field>
+    <comment pinned="false" h="80" w="160">Fonction exécutée périodiquement, de façon répétée</comment>
+  </block>
+  <block type="procedures_defreturn" id="/C=bh_kDWJHPmS:$:vm2" x="4" y="311">
+    <field name="NAME">clic commencer</field>
+    <comment pinned="false" h="80" w="160">Décrire cette fonction…</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="X4itX!Tms,a$$GC`X2J9">
+        <mutation else="1"></mutation>
+        <value name="IF0">
+          <block type="variables_get" id=";F,osj8x34|Q3tKhn.GH">
+            <field name="VAR" id="z!-SO^tF.z_uRA1pLHF`" variabletype="">enCours</field>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="cadres_transfertF" id="{aXi1G5E`r7]C~/9%OII">
+            <value name="liste">
+              <block type="lists_create_with" id="o6(h:tTa^sNNK.?CJZv7">
+                <mutation items="1"></mutation>
+                <value name="ADD0">
+                  <block type="text" id="-qmf1.B7^):ZA8id${yg">
+                    <field name="TEXT">recommencer</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="cadre2">
+              <shadow type="text" id="P-^lN~8eN%y!SJs3eIrL">
+                <field name="TEXT">cadreTRACKER</field>
+              </shadow>
+            </value>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="variables_set" id="Bd[#U5x4@!_w.y@hL}VQ">
+            <field name="VAR" id="z!-SO^tF.z_uRA1pLHF`" variabletype="">enCours</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="^M9%.VNYfZu?OQRUeu6M">
+                <field name="BOOL">TRUE</field>
+              </block>
+            </value>
+            <next>
+              <block type="cadres_transfertF" id="ZWtzSgc}6Zr*TqO|oXgP">
+                <value name="liste">
+                  <block type="lists_create_with" id="~U)msFA7[ebe#UZOHeb~">
+                    <mutation items="1"></mutation>
+                    <value name="ADD0">
+                      <block type="text" id="+|eP4xpZn$3ZXcyrjGC_">
+                        <field name="TEXT">commencer</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="cadre2">
+                  <shadow type="text" id="/;qPlMviB]uF#ecrdGvA">
+                    <field name="TEXT">cadreTRACKER</field>
+                  </shadow>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defreturn" id="S4nqLWh|d,hWk@x(EWWJ" x="5" y="532">
+    <field name="NAME">clic crayon</field>
+    <comment pinned="false" h="80" w="160">Décrire cette fonction…</comment>
+    <statement name="STACK">
+      <block type="variables_set" id="U`#eB,?ysLr:5c^Nf{/F">
+        <field name="VAR" id="J$`l$|=0y|;8:nz9{.Zp" variabletype="">crayonTrace</field>
+        <value name="VALUE">
+          <block type="logic_negate" id="XMP4l*8){`$MF2f}Yasb">
+            <value name="BOOL">
+              <block type="variables_get" id="w*HLQgg.n52K8gwR{?lG">
+                <field name="VAR" id="J$`l$|=0y|;8:nz9{.Zp" variabletype="">crayonTrace</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="controls_if" id="tgO#/b!hS4yqWlR;h=:^">
+            <mutation else="1"></mutation>
+            <value name="IF0">
+              <block type="variables_get" id="c[xt6Td1s%T#mItJW_@|">
+                <field name="VAR" id="J$`l$|=0y|;8:nz9{.Zp" variabletype="">crayonTrace</field>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="proprietes_fixeContenu" id="N*iNz(_R(2f{|ir62ib9">
+                <value name="OBJET">
+                  <block type="variables_get" id="B)P_4snr?L#;-iPOAK$^">
+                    <field name="VAR" id="cE-/`MSv#r.PY|ZI$:.b" variabletype="">boutonCrayon</field>
+                  </block>
+                </value>
+                <value name="TEXTE">
+                  <shadow type="text" id="3:~n)N10PecfV9KTbv_f">
+                    <field name="TEXT">Lever le crayon</field>
+                  </shadow>
+                </value>
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="proprietes_fixeContenu" id="PB6Gh[$!O5G~[y8PSo31">
+                <value name="OBJET">
+                  <block type="variables_get" id="oW8Gh/w14ikA9ix64txU">
+                    <field name="VAR" id="cE-/`MSv#r.PY|ZI$:.b" variabletype="">boutonCrayon</field>
+                  </block>
+                </value>
+                <value name="TEXTE">
+                  <shadow type="text" id="ec68b8-#B/6HK(J|k(:(">
+                    <field name="TEXT">Baisser le crayon</field>
+                  </shadow>
+                </value>
+              </block>
+            </statement>
+            <next>
+              <block type="cadres_transfertF" id="X(@IX#U/YkJ,J(p2Zp1Q">
+                <value name="liste">
+                  <block type="lists_create_with" id="ky_,u7?f(XrIBbT-%L5,">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0">
+                      <block type="text" id="SyqEL?TKziCynwXzK3SA">
+                        <field name="TEXT">crayon</field>
+                      </block>
+                    </value>
+                    <value name="ADD1">
+                      <block type="variables_get" id="K6WRV$r_NE3@w4u-2u8K">
+                        <field name="VAR" id="J$`l$|=0y|;8:nz9{.Zp" variabletype="">crayonTrace</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="cadre2">
+                  <shadow type="text" id="q;Bv@HpL(hwT5Jz6ILcD">
+                    <field name="TEXT">cadreTRACKER</field>
+                  </shadow>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defreturn" id="*/4b6gjsRNxP;swY7DE^" x="4" y="819">
+    <field name="NAME">cacher boutons du cadre</field>
+    <comment pinned="false" h="80" w="160">Décrire cette fonction…</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="j]KG2G~]KW.UZ]mEnZ,*">
+        <mutation else="1"></mutation>
+        <value name="IF0">
+          <block type="cadres_chargement" id="2zlHp-gB6wyYG4)?/bCD">
+            <field name="NAME">GENERIQUE</field>
+            <value name="cadre">
+              <shadow type="text" id="gTE#.%$5w2dFt62t=4tw">
+                <field name="TEXT">cadreTRACKER</field>
+              </shadow>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="cadres_transfertF" id="9IbmO:=7srlD]4PEa8Nq">
+            <value name="liste">
+              <block type="lists_create_with" id="T$}~#(8~i~o??b{C;w?p">
+                <mutation items="1"></mutation>
+                <value name="ADD0">
+                  <block type="text" id="S,)Bb-`Fm6-@ozeDrx}I">
+                    <field name="TEXT">initialiser</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="cadre2">
+              <shadow type="text" id="##OQmbQ@%NP*xqR0#4y;">
+                <field name="TEXT">cadreTRACKER</field>
+              </shadow>
+            </value>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="programmation_faireDelai" id="A1])%]cK7`s=p6DNvoE{">
+            <value name="fonction">
+              <block type="procedures_callreturn" id="Fl7A82SW5kpPnmS^gZj:">
+                <mutation name="cacher boutons du cadre"></mutation>
+              </block>
+            </value>
+            <value name="delai">
+              <shadow type="math_number" id="VHS?D__F$=)2aWMfER=)">
+                <field name="NUM">0.1</field>
+              </shadow>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>
