@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Programme p5Visuel + SPAF</title>
+    <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+    <style> body {padding: 0; margin: 20;} </style>
+     <link rel="stylesheet" href="execution.css" type="text/css" />
+    <script type="text/javascript" 
+    		src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=AM_HTMLorMML-full" async></script>
+    <script src="https://andreboileau.github.io/p5Visuel/p5/p5.min.js"></script>
+    <script src="https://andreboileau.github.io/p5Visuel/p5/p5.dom.min.js"></script>
+    <script src="https://andreboileau.github.io/p5Visuel/p5/p5.sound.min.js"></script>
+    <script src="https://andreboileau.github.io/p5Visuel/p5/bibAB.js"></script>
+    <script src="prog.js"></script> 
+    <script src="utilisateur.js"></script>
+  </head>
+  <body>
+  	<h1>Pourquoi ne pas dessiner avec le nez ?<br/>(via un cadre de suivi de visage appelé de <i>p5Visuel</i>)</h1>
+  	
+  	<h2>Voici des boutons gérées par <i>p5Visuel</i></h2>
+  	<button id="commencer" type="button" style="zoom:2; margin-left:60px">Commencer</button>
+  	<button id="crayon" type="button" style="zoom:2; margin-left:20px">Lever le crayon</button>
+    
+  	<h2>Voici le cadre <a href="https://github.com/auduno/clmtrackr" target="_blank"><i>clmtrackr.js</i></a> contrôlé par les boutons ci-dessus</h2>
+  	<h2>Inspiré par un <a href="https://www.youtube.com/watch?v=1k3X4DLDHdc" target="_blank">exemple de Lauren McCarthy</a>, 
+  	créatrice de <a href="https://p5js.org" target="_blank">p5.js</a>.</h2>
+  	<iframe id="cadreTRACKER" src="cadreTRACKER.html" width="840" height="880"
+			style="margin-left:0px;border:0px solid rgb(0,0,0);">
+	</iframe>
+  </body>
+</html>
